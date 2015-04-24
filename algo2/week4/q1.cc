@@ -6,6 +6,8 @@
 
 using namespace std;
 
+const int MAX = INT_MAX;
+
 bool check_cycle(int*** A, int n, int n_index) {
   for (int i = 1; i < n + 1; ++i) {
     if (A[n_index][i][i] < 0) {
@@ -18,13 +20,13 @@ bool check_cycle(int*** A, int n, int n_index) {
 void floyd_warshall(string filename) {
   int m, n;
   ifstream in(filename.c_str());
-  in >> m >> n;
+  in >> n >> m;
   cout << filename << endl;
   int** G = new int*[n + 1];
   for (int i = 1; i < n + 1; ++i) {
     G[i] = new int[n + 1];
     for (int j = 1; j < n + 1; ++j) {
-      G[i][j] = INT_MAX;
+      G[i][j] = MAX;
     }
   }
   while (!in.eof()) {
@@ -58,8 +60,8 @@ void floyd_warshall(string filename) {
     prev_k = (k - 1) % 2;
     for (int i = 1; i < n + 1; ++i) {
       for (int j = 1; j < n + 1; ++j) {
-        // prevent overflows in case 2
-        if (A[prev_k][i][k] == INT_MAX || A[prev_k][k][j] == INT_MAX) {
+        // avoid overflows in case 2
+        if (A[prev_k][i][k] == MAX || A[prev_k][k][j] == MAX) {
           A[curr_k][i][j] = A[prev_k][i][j];
           continue;
         }
@@ -76,7 +78,7 @@ void floyd_warshall(string filename) {
   cout << "negative cycle: " << negative_cycle << endl;
   // compute the shortest shortest path if there are no negative cycles
   if (!negative_cycle) {
-    int shortest = INT_MAX;
+    int shortest = MAX;
     for (int i = 1; i < n + 1; ++i) {
       for (int j = 1; j < n + 1; ++j) {
         if (A[curr_k][i][j] < shortest) {

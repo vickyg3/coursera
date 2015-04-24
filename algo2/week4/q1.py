@@ -95,7 +95,7 @@ def floyd_warshall(filename):
                             A[i][k][prev_k] + A[k][j][prev_k]) # case 2 - includes vk.
         if check_cycle(A, n, curr_k):
             break
-        #print 'took ', (time.time() - start), ' seconds'
+        print 'took ', (time.time() - start), ' seconds'
     # see if the graph has a negative length cycle
     negative_cycle = check_cycle(A, n, curr_k)
     print "negative_cycle: ", negative_cycle
