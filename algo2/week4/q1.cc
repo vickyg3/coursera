@@ -17,7 +17,7 @@ bool check_cycle(int*** A, int n, int n_index) {
 
 void floyd_warshall(string filename) {
   int m, n;
-  ifstream in(filename);
+  ifstream in(filename.c_str());
   in >> m >> n;
   cout << filename << endl;
   int** G = new int*[n + 1];
